@@ -12,6 +12,7 @@ import java.util.Optional;
 public class Ejercicio1 {
     public static void main (String[] args) throws IOException {
 
+
         List<Persona> listaPersonas= new ArrayList<>();
 
         Persona persona;
@@ -24,10 +25,26 @@ public class Ejercicio1 {
         String linea;
         while ((linea = br.readLine()) != null)
         {
-            partes = linea.split(":");
-            Optional<Integer> edad=partes.length<=2?Optional.empty(): Optional.of(Integer.parseInt(partes[2]));
-            persona = new Persona(partes[0], partes[1].equals("")?"desconocida": partes[1], edad);
-            listaPersonas.add(persona);
+            partes= linea.split(":");
+
+
+                //Optional<Integer> edad = partes.length <= 2 ? Optional.empty() : Optional.of(Integer.parseInt(partes[2]));
+                if((partes.length==2)){
+            persona= new Persona(partes[0],partes[1],Optional.of(99));
+            /*if (partes[1]== ""){
+                persona= new Persona(partes[0],"desconocido",Optional.of(Integer.parseInt(partes[2])));
+            }*/
+        }else{
+                    if (partes[1]== "") {
+                        persona = new Persona(partes[0], "desconocido", Optional.of(Integer.parseInt(partes[2])));
+
+                    }else{
+                    persona= new Persona(partes[0],partes[1],Optional.of(Integer.parseInt(partes[2])));
+                        }}
+                //persona = new Persona(partes[0], partes[1].equals("") ? "desconocida" : partes[1], edad);
+
+                listaPersonas.add(persona);
+
 
         }
 

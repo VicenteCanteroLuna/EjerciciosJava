@@ -41,9 +41,9 @@ public class Persona {
 
     @Override
     public String toString() {
-        return  "Nombre='" + nombre + '.' +
-                ", Poblacion='" + poblacion + '.' +
-                ", Edad=" + edad +
+        return  "Nombre=" + nombre + '.' +
+                ", Poblacion=" + poblacion + '.' +
+                ", Edad=" + edad.get() +
                 '}';
     }
 }
