@@ -1,0 +1,3 @@
+valor.var1 : CONTENIDO DE VALOR1
+valor.var2 : 100
+valor.var3 : ${VAR_SIS3:Valor_Defecto}
