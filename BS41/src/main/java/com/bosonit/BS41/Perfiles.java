@@ -1,4 +1,10 @@
 package com.bosonit.BS41;
 
-public class Perfiles {
-}
+public interface Perfiles {
+
+    public void miFuncion(String log);
+    public String getProfile();
+    }
+
+
+
