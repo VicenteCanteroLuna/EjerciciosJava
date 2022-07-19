@@ -38,6 +38,6 @@ Perfiles perfiles;
     @GetMapping("/perfil")
     String damePerfil(){
 
-        return "Valores de " +perfiles.toString();
+        return perfiles.miFuncion();
     }
 }
