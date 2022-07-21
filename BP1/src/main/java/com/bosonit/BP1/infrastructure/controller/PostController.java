@@ -1,0 +1,26 @@
+package com.bosonit.BP1.infrastructure.controller;
+
+import com.bosonit.BP1.Domain.Persona;
+import com.bosonit.BP1.application.PersonaService;
+import com.bosonit.BP1.infrastructure.controller.dto.input.PersonaInputDTO;
+import com.bosonit.BP1.infrastructure.controller.dto.output.PersonaOutputDTO;
+import com.bosonit.BP1.infrastructure.repository.PersonaRepositoryJPA;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class PostController {
+
+
+    @Autowired
+    PersonaService personaService;
+
+    @PostMapping("/persona")
+    public PersonaOutputDTO addPersona(@RequestBody PersonaInputDTO persInputDto) throws Exception {
+        return personaService.añadir(persInputDto);
+
+    }
+
+}
