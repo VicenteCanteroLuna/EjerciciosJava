@@ -73,9 +73,20 @@ public class controlador {
     @DeleteMapping("/persona/{id}")
     String personaBorradaPorID(@PathVariable int id){
         personaRepositorio.deleteById(id);
-        return "borrado";
+        return "Borrada persona con id: " + id;
 
-    }}
+    }
+
+     //PUT
+
+    @PutMapping("/persona/actualiza")
+    public Persona personaActualizada(@RequestBody Persona persona){
+        Persona persona1 = personaRepositorio.findById(persona.getId_persona()).get();
+        personaRepositorio.save(persona);
+        return persona;
+    }
+
+}
 
 
 
