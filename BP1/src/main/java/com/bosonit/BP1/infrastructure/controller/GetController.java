@@ -4,7 +4,10 @@ import com.bosonit.BP1.Domain.Persona;
 import com.bosonit.BP1.application.PersonaService;
 import com.bosonit.BP1.infrastructure.controller.dto.output.PersonaOutputDTO;
 import com.bosonit.BP1.infrastructure.repository.PersonaRepositoryJPA;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,12 +27,11 @@ public class GetController {
     }
 
     @GetMapping("/persona/{id}")
-    public PersonaOutputDTO getbyId(@PathVariable int id) throws Exception {
+    public ResponseEntity<PersonaOutputDTO> getbyId(@PathVariable int id) throws Exception {
         try{
-            return personaService.findById(id);
+           return personaService.findById(id);
         }catch(Exception e){
-            System.out.println("No encontrado");
-            return null;
+            return new ResponseEntity<>( null, HttpStatus.NOT_FOUND);
         }
     }
 

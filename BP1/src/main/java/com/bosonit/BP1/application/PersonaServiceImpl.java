@@ -6,6 +6,9 @@ import com.bosonit.BP1.infrastructure.controller.dto.output.PersonaOutputDTO;
 import com.bosonit.BP1.infrastructure.repository.PersonaRepositoryJPA;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -69,19 +72,20 @@ public class PersonaServiceImpl implements PersonaService{
         //creamos lista de personas de salida
         List<PersonaOutputDTO> personas;
         //buscamos todas los objetos en el repositorio y los casteamos a nuestro objeto de salida
-        personas = personaRepositoryJPA.findAll().stream().map(p -> new PersonaOutputDTO(p)).collect(Collectors.toList());
+        personas = personaRepositoryJPA.findAll().stream().map(p -> new PersonaOutputDTO(p)).toList();
+
         return personas;
     }
 
     @Override
-    public PersonaOutputDTO findById(int id) throws Exception {
+    public ResponseEntity<PersonaOutputDTO> findById(int id) throws Exception {
         try {
             Persona p = personaRepositoryJPA.findById(id).orElseThrow(() -> new Exception("Persona con id: " + id + "no encontrada."));
             PersonaOutputDTO persOutputDto = new PersonaOutputDTO(p);
-            return persOutputDto;
+            return new ResponseEntity<>(persOutputDto, HttpStatus.OK);
         }catch (Exception e){
             System.out.println(e.getMessage());
-            return null;
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 
     }
@@ -97,5 +101,15 @@ public class PersonaServiceImpl implements PersonaService{
             System.out.println("usuario no encontrado");
             return null;
         }
+    }
+
+    @Override
+    public PersonaOutputDTO actualizaPersona(int id, PersonaInputDTO personaInputDTO) {
+        Persona personaEncontrada= personaRepositoryJPA.findById(id)
+                .orElseThrow(()->new RuntimeException("Persona con esa id no encontrada"));
+        personaEncontrada.actualiza(personaInputDTO);
+        personaRepositoryJPA.save(personaEncontrada);
+
+        return new PersonaOutputDTO(personaEncontrada);
     }
 }
