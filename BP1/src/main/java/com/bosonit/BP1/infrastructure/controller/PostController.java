@@ -1,6 +1,7 @@
 package com.bosonit.BP1.infrastructure.controller;
 
 import com.bosonit.BP1.Domain.Persona;
+import com.bosonit.BP1.Errores.UnprocesableException;
 import com.bosonit.BP1.application.PersonaService;
 import com.bosonit.BP1.infrastructure.controller.dto.input.PersonaInputDTO;
 import com.bosonit.BP1.infrastructure.controller.dto.output.PersonaOutputDTO;
@@ -19,7 +20,11 @@ public class PostController {
 
     @PostMapping("/persona")
     public PersonaOutputDTO addPersona(@RequestBody PersonaInputDTO persInputDto) throws Exception {
-        return personaService.añadir(persInputDto);
+        try{
+            return personaService.añadir(persInputDto);
+        }catch (Exception e){
+            throw new UnprocesableException ("Revisa los campos");
+        }
 
     }
 

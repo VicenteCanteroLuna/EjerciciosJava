@@ -1,6 +1,7 @@
 package com.bosonit.BP1.infrastructure.controller;
 
 import com.bosonit.BP1.Domain.Persona;
+import com.bosonit.BP1.Errores.NotFoundException;
 import com.bosonit.BP1.application.PersonaService;
 import com.bosonit.BP1.infrastructure.controller.dto.output.PersonaOutputDTO;
 import com.bosonit.BP1.infrastructure.repository.PersonaRepositoryJPA;
@@ -31,7 +32,7 @@ public class GetController {
         try{
            return personaService.findById(id);
         }catch(Exception e){
-            return new ResponseEntity<>( null, HttpStatus.NOT_FOUND);
+            throw new NotFoundException("No existe el id");
         }
     }
 

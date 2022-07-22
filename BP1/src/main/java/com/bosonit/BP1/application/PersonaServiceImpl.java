@@ -1,6 +1,7 @@
 package com.bosonit.BP1.application;
 
 import com.bosonit.BP1.Domain.Persona;
+import com.bosonit.BP1.Errores.NotFoundException;
 import com.bosonit.BP1.Errores.UnprocesableException;
 import com.bosonit.BP1.infrastructure.controller.dto.input.PersonaInputDTO;
 import com.bosonit.BP1.infrastructure.controller.dto.output.PersonaOutputDTO;
@@ -80,12 +81,12 @@ public class PersonaServiceImpl implements PersonaService{
     @Override
     public ResponseEntity<PersonaOutputDTO> findById(int id) throws Exception {
         try {
-            Persona p = personaRepositoryJPA.findById(id).orElseThrow(() -> new Exception("Persona con id: " + id + "no encontrada."));
+            Persona p = personaRepositoryJPA.findById(id).orElseThrow(() -> new NotFoundException("Persona con id: " + id + "no encontrada."));
             PersonaOutputDTO persOutputDto = new PersonaOutputDTO(p);
             return new ResponseEntity<>(persOutputDto, HttpStatus.OK);
         }catch (Exception e){
             System.out.println(e.getMessage());
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            throw  new NotFoundException("No existe");
         }
 
     }
@@ -105,11 +106,17 @@ public class PersonaServiceImpl implements PersonaService{
 
     @Override
     public PersonaOutputDTO actualizaPersona(int id, PersonaInputDTO personaInputDTO) {
-        Persona personaEncontrada= personaRepositoryJPA.findById(id)
-                .orElseThrow(()->new RuntimeException("Persona con esa id no encontrada"));
-        personaEncontrada.actualiza(personaInputDTO);
-        personaRepositoryJPA.save(personaEncontrada);
+       try {
+           Persona personaEncontrada = personaRepositoryJPA.findById(id)
+                   .orElseThrow(() -> new RuntimeException("Persona con esa id no encontrada"));
 
-        return new PersonaOutputDTO(personaEncontrada);
+           personaEncontrada.actualiza(personaInputDTO);
+           personaRepositoryJPA.save(personaEncontrada);
+
+           return new PersonaOutputDTO(personaEncontrada);
+       }catch (Exception e){
+           throw new UnprocesableException("Error");
+       }
+
     }
 }

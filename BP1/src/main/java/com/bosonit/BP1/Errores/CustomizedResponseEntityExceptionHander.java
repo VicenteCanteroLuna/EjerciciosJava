@@ -20,7 +20,7 @@ public class CustomizedResponseEntityExceptionHander extends ResponseEntityExcep
     }
 
     @ExceptionHandler(UnprocesableException.class)
-    public final ResponseEntity<CustomError> handleUnprocesableException(NotFoundException ex, WebRequest request){
+    public final ResponseEntity<CustomError> handleUnprocesableException(UnprocesableException ex, WebRequest request){
         CustomError customError = new CustomError(new Date(), 422, ex.getMessage());
         return new ResponseEntity<CustomError>(customError, HttpStatus.UNPROCESSABLE_ENTITY);
 
