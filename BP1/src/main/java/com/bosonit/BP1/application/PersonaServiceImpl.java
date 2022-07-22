@@ -1,6 +1,7 @@
 package com.bosonit.BP1.application;
 
 import com.bosonit.BP1.Domain.Persona;
+import com.bosonit.BP1.Errores.UnprocesableException;
 import com.bosonit.BP1.infrastructure.controller.dto.input.PersonaInputDTO;
 import com.bosonit.BP1.infrastructure.controller.dto.output.PersonaOutputDTO;
 import com.bosonit.BP1.infrastructure.repository.PersonaRepositoryJPA;
@@ -28,28 +29,28 @@ public class PersonaServiceImpl implements PersonaService{
         //validamos campos
         try {
             if (personaInputDTO.getUsuario() == null) {
-                throw new Exception("Usuario no puede ser nulo");
+                throw new UnprocesableException("Usuario no puede ser nulo");
             }
             if (personaInputDTO.getUsuario().length() > 10) {
-                throw new Exception("Longitud de usuario no puede ser superior a 10 caracteres");
+                throw new UnprocesableException("Longitud de usuario no puede ser superior a 10 caracteres");
             }
             if (personaInputDTO.getPassword() == null) {
-                throw new Exception("Password no puede ser nulo");
+                throw new UnprocesableException("Password no puede ser nulo");
             }
             if (personaInputDTO.getName() == null) {
-                throw new Exception("Name no puede ser nulo");
+                throw new UnprocesableException("Name no puede ser nulo");
             }
             if (personaInputDTO.getCompany_email() == null) {
-                throw new Exception("Company_email no puede ser nulo");
+                throw new UnprocesableException("Company_email no puede ser nulo");
             }
             if (personaInputDTO.getPersonal_email() == null) {
-                throw new Exception("Personal_email no puede ser nulo");
+                throw new UnprocesableException("Personal_email no puede ser nulo");
             }
             if (personaInputDTO.getActive() == null) {
-                throw new Exception("Active no puede ser nulo");
+                throw new UnprocesableException("Active no puede ser nulo");
             }
             if (personaInputDTO.getCreated_date() == null) {
-                throw new Exception("Create_date no puede ser nulo");
+                throw new UnprocesableException("Create_date no puede ser nulo");
             }
 
             Persona persona= new Persona(personaInputDTO);
@@ -61,8 +62,7 @@ public class PersonaServiceImpl implements PersonaService{
             return personaOutput;
 
         }catch(Exception e){
-            System.out.println(e.getMessage());
-            return null;
+            throw new UnprocesableException("Campos inválidos");
         }
     }
 

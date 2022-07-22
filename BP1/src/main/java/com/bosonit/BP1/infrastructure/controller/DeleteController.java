@@ -1,5 +1,6 @@
 package com.bosonit.BP1.infrastructure.controller;
 
+import com.bosonit.BP1.Errores.NotFoundException;
 import com.bosonit.BP1.infrastructure.controller.dto.output.PersonaOutputDTO;
 import com.bosonit.BP1.infrastructure.repository.PersonaRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class DeleteController {
             personaRepositoryJPA.deleteById(id);
             return new ResponseEntity<>(("Borrada persona con id: " + id),HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(("Persona no encontrada"), HttpStatus.NOT_ACCEPTABLE);
+            throw new NotFoundException("No existe el id");
         }
     }
 

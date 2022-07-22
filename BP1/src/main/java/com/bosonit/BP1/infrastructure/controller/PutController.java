@@ -1,5 +1,6 @@
 package com.bosonit.BP1.infrastructure.controller;
 
+import com.bosonit.BP1.Errores.NotFoundException;
 import com.bosonit.BP1.application.PersonaService;
 import com.bosonit.BP1.infrastructure.controller.dto.input.PersonaInputDTO;
 import com.bosonit.BP1.infrastructure.controller.dto.output.PersonaOutputDTO;
@@ -20,7 +21,7 @@ public class PutController {
         try {
             return new ResponseEntity<>(personaService.actualizaPersona(id, personaInputDTO), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+            throw new NotFoundException("No existe el id");
         }
     }
 }
