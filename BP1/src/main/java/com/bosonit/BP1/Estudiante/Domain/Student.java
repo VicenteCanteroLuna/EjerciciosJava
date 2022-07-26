@@ -32,7 +32,6 @@ public class Student {
 
     @Column(name= "Comentarios")
     private String coments;
-
     /*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "id_profesor")
@@ -54,34 +53,39 @@ public class Student {
         }*/
     }
 
-    public Student DtoToStudent(StudentInputDto studentInputDto) throws Exception{
-        try{
-            Student student= new Student();
-            student.setId_student(studentInputDto.getId_student());
-            student.setPersona(studentInputDto.getPersona());
-            student.setComents(studentInputDto.getComents());
-            student.setNum_hours_week(studentInputDto.getNum_hours_week());
-            student.ValidadorEstudiante();
-            return student;
-        }catch (Exception e){
-            throw new UnprocesableException(e.getMessage());
-        }
+    public Student (StudentInputDto studentInputDto){
+        setNum_hours_week(studentInputDto.getNum_hours_week());
+        setComents(studentInputDto.getComents());
+        //setBranch(studentInputDto.getBranch);
     }
 
-    public StudentOutputDtoSimple StudentToDtoSimple (Student student){
+
+    public void StudentInputDto(StudentInputDto studentInputDto) {
+        this.setComents(studentInputDto.getComents());
+        this.setNum_hours_week(studentInputDto.getNum_hours_week());
+        //this.setBranch(studentInputDto.getBranch());
+    }
+
+    public StudentOutputDtoSimple StudentToOutputDtoSimple(Student student) {
+
         StudentOutputDtoSimple studentOutputDtoSimple = new StudentOutputDtoSimple();
-        studentOutputDtoSimple.setId_student(student.getId_student());
-        studentOutputDtoSimple.setComents(student.getComents());
-        studentOutputDtoSimple.setNum_hours_week(studentOutputDtoSimple.getNum_hours_week());
-    return studentOutputDtoSimple;
+        studentOutputDtoSimple.setId_student(this.getId_student());
+        //studentOutputDtoSimple.setBranch(this.getBranch());
+        studentOutputDtoSimple.setComents(this.getComents());
+        studentOutputDtoSimple.setNum_hours_week(this.getNum_hours_week());
+
+        return studentOutputDtoSimple;
     }
 
-    public StudentOutputDtoFull studentToDtoFull(Student student){
+    public StudentOutputDtoFull StudentOutputDtoFull(Student student) {
+
         StudentOutputDtoFull studentOutputDtoFull = new StudentOutputDtoFull();
-        studentOutputDtoFull.setId_student(student.getId_student());
-        studentOutputDtoFull.setPersona(student.getPersona());
-        studentOutputDtoFull.setComents(student.getComents());
-        studentOutputDtoFull.setNum_hours_week(studentOutputDtoFull.getNum_hours_week());
+        studentOutputDtoFull.setId_student(this.getId_student());
+        //studentOutputDtoSimple.setBranch(this.getBranch());
+        studentOutputDtoFull.setComents(this.getComents());
+        studentOutputDtoFull.setNum_hours_week(this.getNum_hours_week());
+        studentOutputDtoFull.setPersona(this.getPersona());
+
         return studentOutputDtoFull;
     }
 

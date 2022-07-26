@@ -10,8 +10,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class StudentInputDto implements Serializable {
 
-    private int id_student;
-    private Persona persona;
+    private int id_persona;
     private int num_hours_week;
     private String coments;
 

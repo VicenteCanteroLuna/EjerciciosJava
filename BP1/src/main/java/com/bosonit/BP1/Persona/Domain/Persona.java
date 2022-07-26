@@ -18,7 +18,6 @@ import java.util.Date;
 public class Persona {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@OneToOne(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private int id_persona;
 
     private String usuario;
@@ -47,6 +46,8 @@ public class Persona {
     setCreated_date(persona.getCreated_date());
     setImagen_url(persona.getImagen_url());
     setTermination_date(persona.getTermination_date());
+
+
 
     }
 

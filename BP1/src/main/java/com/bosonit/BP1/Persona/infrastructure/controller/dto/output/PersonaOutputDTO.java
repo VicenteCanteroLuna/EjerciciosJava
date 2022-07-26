@@ -28,6 +28,7 @@ public class PersonaOutputDTO implements Serializable {
 
 
 
+
     public PersonaOutputDTO(Persona persona){
 
         setId_persona(persona.getId_persona());
@@ -42,6 +43,8 @@ public class PersonaOutputDTO implements Serializable {
         setCreated_date(persona.getCreated_date());
         setImagen_url(persona.getImagen_url());
         setTermination_date(persona.getTermination_date());
+
+
 
 
         /* ES lo mismo que:

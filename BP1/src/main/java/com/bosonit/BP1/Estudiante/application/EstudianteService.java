@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 public interface EstudianteService {
 
-    StudentOutputDtoFull crearEstudianteFull(StudentInputDto studentInputDto) throws Exception;
+    StudentOutputDtoFull crearEstudiante(StudentInputDto studentInputDto) throws Exception;
 
-    StudentOutputDtoSimple crearEstudianteSimple(StudentInputDto studentInputDto) throws Exception;
+
 
 
 }
