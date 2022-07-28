@@ -17,12 +17,13 @@ public class StudentOutputDtoSimple implements Serializable {
     //private Persona persona;
     private int num_hours_week;
     private String coments;
+    private String branch;
 
 
 
     /*
      private Profesor profesor;
-     private String branch;
+
      List<Alumnos_Estudios> estudios;
      */
 
@@ -32,5 +33,6 @@ public class StudentOutputDtoSimple implements Serializable {
         //setPersona(student.getPersona());
         setNum_hours_week(student.getNum_hours_week());
         setComents(student.getComents());
+        setBranch(student.getBranch());
     }
 }

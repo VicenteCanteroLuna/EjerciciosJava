@@ -13,11 +13,11 @@ public class StudentInputDto implements Serializable {
     private int id_persona;
     private int num_hours_week;
     private String coments;
-
+    private String branch;
 
 /*
      private Profesor profesor;
-     private String branch;
+
      List<Alumnos_Estudios> estudios;
      */
 

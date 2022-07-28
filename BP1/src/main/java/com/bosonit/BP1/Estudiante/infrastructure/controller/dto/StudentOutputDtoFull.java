@@ -28,5 +28,6 @@ public class StudentOutputDtoFull extends StudentOutputDtoSimple{
         setPersona(student.getPersona());
         setNum_hours_week(student.getNum_hours_week());
         setComents(student.getComents());
+        setBranch(student.getBranch());
     }
 }
