@@ -7,10 +7,8 @@ import com.bosonit.BP1.Estudiante.infrastructure.controller.dto.StudentOutputDto
 import com.bosonit.BP1.Estudiante.infrastructure.controller.dto.StudentOutputDtoSimple;
 import com.bosonit.BP1.Estudiante.infrastructure.repository.StudentRepositoryJpa;
 import com.bosonit.BP1.Persona.Domain.Persona;
-import com.bosonit.BP1.Persona.infrastructure.controller.dto.output.PersonaOutputDTO;
 import com.bosonit.BP1.Persona.infrastructure.repository.PersonaRepositoryJPA;
 import lombok.AllArgsConstructor;
-import org.hibernate.internal.ExceptionMapperStandardImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -64,6 +62,21 @@ public class EstudianteServiceImpl implements EstudianteService {
         estudiantes = studentRepositoryJpa.findAll().stream().map(s -> new StudentOutputDtoFull(s)).toList();
 
         return estudiantes;
+    }
+
+    @Override
+    public StudentOutputDtoFull actualizaEstudiante(int id, StudentInputDto studentInputDto) {
+        try {
+            Student estudianteEncontrado = studentRepositoryJpa.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Estudiante con ese id no encontrado"));
+
+            estudianteEncontrado.actualiza(studentInputDto);
+            studentRepositoryJpa.save(estudianteEncontrado);
+
+            return new StudentOutputDtoFull(estudianteEncontrado);
+        } catch (Exception e) {
+            throw new UnprocesableException("Error");
+        }
     }
 }
 

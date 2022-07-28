@@ -1,7 +1,7 @@
 package com.bosonit.BP1.Estudiante.Domain;
 
 
-import com.bosonit.BP1.Alumnos_estudios.domain.Alumnos_Estudios;
+import com.bosonit.BP1.Asignaturas.domain.Asignaturas;
 import com.bosonit.BP1.Errores.UnprocesableException;
 import com.bosonit.BP1.Estudiante.infrastructure.controller.dto.StudentInputDto;
 import com.bosonit.BP1.Estudiante.infrastructure.controller.dto.StudentOutputDtoFull;
@@ -45,7 +45,7 @@ public class Student {
     private String branch;
 
     @OneToMany
-    List<Alumnos_Estudios> estudios;
+    List<Asignaturas> estudios;
 
 
     public void ValidadorEstudiante() throws Exception{
@@ -93,5 +93,19 @@ public class Student {
         return studentOutputDtoFull;
     }
 
-
+    public void actualiza(StudentInputDto studentInputDto) throws Exception{
+        try {
+            if (studentInputDto.getComents() != null) {
+                setComents(studentInputDto.getComents());
+            }
+            if (studentInputDto.getBranch() != null) {
+                setBranch(studentInputDto.getBranch());
+            }
+            if (String.valueOf(studentInputDto.getNum_hours_week()) != null) {
+                setNum_hours_week(studentInputDto.getNum_hours_week());
+            }
+        }catch (Exception e){
+            throw new UnprocesableException("Campos erróneos");
+        }
+    }
 }
